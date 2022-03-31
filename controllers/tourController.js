@@ -26,7 +26,7 @@ exports.getAllTour = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      status: "failed",
+      status: "failed something went wrong",
       message: error,
     });
   }
