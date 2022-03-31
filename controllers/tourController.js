@@ -5,9 +5,7 @@ exports.createTour = async (req, res) => {
     const tour = await Tour.create(req.body);
     res.status(201).json({
       status: "success",
-      data: {
-        tour,
-      },
+      tour,
     });
   } catch (err) {
     res.status(400).json({
@@ -22,7 +20,7 @@ exports.getAllTour = async (req, res) => {
     const tour = await Tour.find();
     res.status(200).json({
       status: "success",
-      data: { tour },
+      tour,
     });
   } catch (error) {
     res.status(400).json({
