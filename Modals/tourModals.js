@@ -16,10 +16,16 @@ const tourSchema = new mongoose.Schema({
   title: {
     type: String,
     required: [true, "Tour must have a title"],
+    unique: [true, "Title already exists!"],
+    trim: true,
   },
   province: {
     type: String,
     required: [true, "Tour must have a Province"],
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
   },
 });
 
