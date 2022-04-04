@@ -43,10 +43,7 @@ exports.getAllTour = async (req, res) => {
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
 
     let query = Tour.find(JSON.parse(queryStr));
-<<<<<<< HEAD
-=======
 
->>>>>>> 2c8c1d84595237c99d53b0366fa1366eb5b2e7b7
     if (req.query.fields) {
       const fields = req.query.fields.split(",").join(" ");
       query = query.select(fields);
@@ -55,14 +52,6 @@ exports.getAllTour = async (req, res) => {
     }
 
     const tour = await query;
-<<<<<<< HEAD
-    // if (req.query.fields === "province") {
-    //   tour = [...new Set(tour.map((item) => item.province))].map((province) =>
-    //     tour.find((item) => item.province === province)
-    //   );
-    // }
-=======
->>>>>>> 2c8c1d84595237c99d53b0366fa1366eb5b2e7b7
     res.status(200).json({
       status: "success",
       tour,
