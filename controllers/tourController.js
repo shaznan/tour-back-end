@@ -15,7 +15,25 @@ exports.createTour = async (req, res) => {
   }
 };
 
+exports.deleteTour = async (req, res) => {
+  try {
+    const selectedId = req.query.id;
+    await Tour.findByIdAndDelete({ _id: selectedId });
+
+    res.status(201).json({
+      status: "success",
+      data: null,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failed",
+      message: error,
+    });
+  }
+};
+
 exports.getAllTour = async (req, res) => {
+  console.log(req.query);
   try {
     const queryObj = { ...req.query };
     const excludeFeilds = ["page", "sort", "limit", "fields"];
@@ -25,7 +43,6 @@ exports.getAllTour = async (req, res) => {
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
 
     let query = Tour.find(JSON.parse(queryStr));
-
     if (req.query.fields) {
       const fields = req.query.fields.split(",").join(" ");
       query = query.select(fields);
@@ -34,6 +51,11 @@ exports.getAllTour = async (req, res) => {
     }
 
     const tour = await query;
+    // if (req.query.fields === "province") {
+    //   tour = [...new Set(tour.map((item) => item.province))].map((province) =>
+    //     tour.find((item) => item.province === province)
+    //   );
+    // }
     res.status(200).json({
       status: "success",
       tour,
